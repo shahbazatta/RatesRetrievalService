@@ -13,19 +13,33 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Service;
+
+import com.rate.retrieval.dao.RateDAO;
 import com.rate.retrieval.model.Rate;
 
-
+@Service
 @Path("/rateservice/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class RateService {
 
 	Map<String, Rate> rates = new HashMap<String, Rate>();
+	private RateDAO rateDAO;
+
+	
+	public RateDAO getRateDAO() {
+		return rateDAO;
+	}
+
+	public void setRateDAO(RateDAO rateDAO) {
+		this.rateDAO = rateDAO;
+	}
 
 	public void init() {
 
 		Rate newRate1 = new Rate();
+		newRate1.setId(1);
 		newRate1.setBuyCurrency(1.1);
 		newRate1.setFile("hello1");
 		newRate1.setRate(1.11);
@@ -33,6 +47,7 @@ public class RateService {
 		newRate1.setTimestamp(new Date("11/11/2016"));
 
 		Rate newRate2 = new Rate();
+		newRate2.setId(2);
 		newRate2.setBuyCurrency(2.1);
 		newRate2.setFile("hello2");
 		newRate2.setRate(2.11);

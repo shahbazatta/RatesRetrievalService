@@ -137,14 +137,17 @@ public class RateServiceImpl implements RateService{
 		String rate = aLine.substring(8, 16);
 		String buyCurrency = aLine.substring(16, 19);
 		String sellCurrency = aLine.substring(19, 22);
-		
-		rateObj.setTimestamp(date);
-		double rateValue = (double)Integer.valueOf(rate)/100000;
-		rateObj.setRate(rateValue);
-		
-		rateObj.setBuyCurrency(buyCurrency);
-		rateObj.setSellCurrency(sellCurrency);
-		
+		try {
+			rateObj.setTimestamp(date);
+			double rateValue = (double) Integer.valueOf(rate) / 100000;
+			rateObj.setRate(rateValue);
+
+			rateObj.setBuyCurrency(buyCurrency);
+			rateObj.setSellCurrency(sellCurrency);
+		}
+		catch (NumberFormatException ex) {
+			ex.printStackTrace();
+		}
 		return rateObj;
 	}
 

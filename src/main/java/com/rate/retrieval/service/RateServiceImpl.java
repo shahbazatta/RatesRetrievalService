@@ -1,12 +1,7 @@
 package com.rate.retrieval.service;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,7 +9,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -84,40 +78,25 @@ public class RateServiceImpl implements RateService{
 	}
 	@GET
 	@Path("/{id}/")
-	public Rate getRate(@PathParam("id") String id) {
+	public Response getRate(@PathParam("id") String id) {
 		
-		Rate c = findRateByDate(id);
-		return c;
+		List<Rate> c = findRateByDate(id);
+		return Response.ok(c).build();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getRates")
 	public Response  getAllRates() {
-		return Response.ok(rates).build();
+		return Response.ok(findAllRates()).build();
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getRates/{date}/")
 	public Response getAllRates(@PathParam("date") String date) {
-		List accountList = new ArrayList();
-		DateFormat formatter = new SimpleDateFormat("yyyyMMdd"); 
-		Date requiredDate;
-		try {
-			requiredDate = (Date)formatter.parse(date);
-
-		for (int i = 0; i <= rates.size(); i++) {
-			Rate rateFromList = (Rate) rates.get(String.valueOf(i));
-			if (rateFromList == null)
-				continue;
-			Date dateFromRate = formatter.parse(rateFromList.getTimestamp());
-			if (rateFromList != null && dateFromRate.compareTo(requiredDate) == 0)
-				accountList.add((Rate) rates.get(String.valueOf(i)));
-		}
-		} catch (ParseException e) {
-		} 
-		return Response.ok(accountList).build();
+		List<Rate> c = findRateByDate(date);
+		return Response.ok(c).build();
 	}
 
 	@GET
@@ -207,7 +186,7 @@ public class RateServiceImpl implements RateService{
 	}
 
 	@Override
-	public Rate findRateByDate(String date) {
+	public List<Rate> findRateByDate(String date) {
 		return dao.findRateByDate(date);
 	}
 

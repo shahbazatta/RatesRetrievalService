@@ -16,7 +16,7 @@ public interface RateService {
  
     List<Rate> findAllRates(); 
      
-    Rate findRateByDate(String date);
+    List<Rate> findRateByDate(String date);
  
      
 }

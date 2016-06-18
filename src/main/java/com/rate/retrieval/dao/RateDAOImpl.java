@@ -51,10 +51,10 @@ public class RateDAOImpl implements RateDAO{
         return (List<Rate>) criteria.list();
     }
  
-    public Rate findRateByDate(String date) {
+    public List<Rate> findRateByDate(String date) {
         Criteria criteria = sessionFactory.openSession().createCriteria(Rate.class);
         criteria.add(Restrictions.eq("timestamp", date));
-        return (Rate) criteria.uniqueResult();
+        return criteria.list();
     }
 
 }

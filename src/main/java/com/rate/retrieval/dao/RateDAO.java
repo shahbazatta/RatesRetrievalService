@@ -14,6 +14,6 @@ public interface RateDAO {
      
     List<Rate> findAllRates();
  
-    Rate findRateByDate(String date);
+    List<Rate> findRateByDate(String date);
 
 }

@@ -3,6 +3,7 @@ package com.rate.retrieval.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,16 +27,30 @@ public class RateDAOImpl implements RateDAO{
     	return (Rate) session.get(Rate.class, id);
     }
  
-    public void saveRates(List<Rate> rates) {
-    	Session session = sessionFactory.openSession();
-    	session.beginTransaction();
-    	for (Rate rate:rates)
-    		session.save(rate);
-    	// session.persist(entity);
-    	session.getTransaction().commit();
-    	session.close();
-//        persist(rate);
-    }
+	public void saveRates(List<Rate> rates) {
+		Session session = sessionFactory.openSession();
+		try {
+
+			session.beginTransaction();
+			int i = 0;
+			for (Rate rate : rates) {
+				session.save(rate);
+				if (i++ % 50 == 0) {
+					session.flush();
+					session.clear();
+				}
+			}
+			// session.persist(entity);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		// persist(rate);
+	}
  
     public void deleteRateByDate(String date) {
     	Session session = sessionFactory.openSession();

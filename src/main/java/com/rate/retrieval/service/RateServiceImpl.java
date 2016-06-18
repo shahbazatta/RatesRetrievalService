@@ -50,26 +50,33 @@ public class RateServiceImpl implements RateService{
 	}
 
 	public void init() {
+		try {
 
-		
-		Rate newRate1 = new Rate();
-		newRate1.setId(1);
-		newRate1.setBuyCurrency("USD");
-		newRate1.setFile("hello1");
-		newRate1.setRate(1.11);
-		newRate1.setSellCurrency("PKR");
-		newRate1.setTimestamp("20161111");
+			Rate newRate1 = new Rate();
+			newRate1.setId(1);
+			newRate1.setBuyCurrency("USD");
+			newRate1.setFile("hello1");
+			newRate1.setRate(1.11);
+			newRate1.setSellCurrency("PKR");
+			Date date1 = new SimpleDateFormat("yyyyMMdd").parse("20161111");
 
-		Rate newRate2 = new Rate();
-		newRate2.setId(2);
-		newRate2.setBuyCurrency("USD");
-		newRate2.setFile("hello2");
-		newRate2.setRate(2.11);
-		newRate2.setSellCurrency("PKR");
-		newRate2.setTimestamp("20161212");
-		
-		rates.put("1", newRate1);
-		rates.put("2", newRate2);
+			newRate1.setTimestamp(date1);
+
+			Rate newRate2 = new Rate();
+			newRate2.setId(2);
+			newRate2.setBuyCurrency("USD");
+			newRate2.setFile("hello2");
+			newRate2.setRate(2.11);
+			newRate2.setSellCurrency("PKR");
+
+			Date date2 = new SimpleDateFormat("yyyyMMdd").parse("20161212");
+			newRate2.setTimestamp(date2);
+
+			rates.put("1", newRate1);
+			rates.put("2", newRate2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -133,11 +140,12 @@ public class RateServiceImpl implements RateService{
 		// use a second Scanner to parse the content of each line
 		Rate rateObj = new Rate();
 		
-		String date = aLine.substring(0, 8);
+		String dateString = aLine.substring(0, 8);
 		String rate = aLine.substring(8, 16);
 		String buyCurrency = aLine.substring(16, 19);
 		String sellCurrency = aLine.substring(19, 22);
 		try {
+			Date date=new SimpleDateFormat("yyyyMMdd").parse(dateString);
 			rateObj.setTimestamp(date);
 			double rateValue = (double) Integer.valueOf(rate) / 100000;
 			rateObj.setRate(rateValue);
@@ -147,6 +155,8 @@ public class RateServiceImpl implements RateService{
 		}
 		catch (NumberFormatException ex) {
 			ex.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		return rateObj;
 	}

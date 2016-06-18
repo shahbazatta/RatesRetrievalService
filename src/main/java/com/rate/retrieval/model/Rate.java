@@ -20,7 +20,7 @@ public class Rate {
 	String file; //- *file* - which stores the filename from which this rate has been extracted,
 	String buyCurrency; //- *buyCurrency* - expressing the currency from which the rate will convert,
 	String sellCurrency; //- *sellCurrency* - expressing the currency to which the rate will convert,
-	String timestamp; //- *validDate* - containing the date when this rate could be used, and
+	Date timestamp; //- *validDate* - containing the date when this rate could be used, and
 	double rate; //- *rate* - the foreign exchange rate itself.
 	
 	
@@ -64,12 +64,12 @@ public class Rate {
 	}
 
 
-	public String getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
 
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 

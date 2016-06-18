@@ -30,7 +30,7 @@ CREATE TABLE rate
 
   sellcurrency text,
 
-  "timestamp" text,
+  "timestamp" time with time zone,
 
   rate double precision,
 

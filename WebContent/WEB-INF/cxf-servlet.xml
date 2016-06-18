@@ -44,13 +44,14 @@
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<beans:prop key="hibernate.jdbc.batch_size">50</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	<beans:bean id="rateDAO" class="com.rate.retrieval.dao.RateDAO">
+	<beans:bean id="rateDAO" class="com.rate.retrieval.dao.RateDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
-		<bean id="rateService" class="com.rate.retrieval.service.RateService" init-method="init">
+		<bean id="rateService" class="com.rate.retrieval.service.RateServiceImpl" init-method="init">
 	    <beans:property name="rateDAO" ref="rateDAO"></beans:property>
 	</bean>
 	

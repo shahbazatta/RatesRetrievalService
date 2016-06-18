@@ -1,19 +1,19 @@
 package com.rate.retrieval.dao;
 
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public class RateDAO {
+import com.rate.retrieval.model.Rate;
 
-	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sf){
-		this.sessionFactory = sf;
-	}
+public interface RateDAO {
 
-	public void inv(){
-		
-	}
+	Rate findById(int id);
+	 
+    void saveRates(List<Rate> rates);
+     
+    void deleteRateByDate(String date);
+     
+    List<Rate> findAllRates();
+ 
+    Rate findRateByDate(String date);
 
 }

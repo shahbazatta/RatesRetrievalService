@@ -18,8 +18,8 @@ public class Rate {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	String file; //- *file* - which stores the filename from which this rate has been extracted,
-	double buyCurrency; //- *buyCurrency* - expressing the currency from which the rate will convert,
-	double sellCurrency; //- *sellCurrency* - expressing the currency to which the rate will convert,
+	String buyCurrency; //- *buyCurrency* - expressing the currency from which the rate will convert,
+	String sellCurrency; //- *sellCurrency* - expressing the currency to which the rate will convert,
 	String timestamp; //- *validDate* - containing the date when this rate could be used, and
 	double rate; //- *rate* - the foreign exchange rate itself.
 	
@@ -44,22 +44,22 @@ public class Rate {
 	}
 
 
-	public double getBuyCurrency() {
+	public String getBuyCurrency() {
 		return buyCurrency;
 	}
 
 
-	public void setBuyCurrency(double buyCurrency) {
+	public void setBuyCurrency(String buyCurrency) {
 		this.buyCurrency = buyCurrency;
 	}
 
 
-	public double getSellCurrency() {
+	public String getSellCurrency() {
 		return sellCurrency;
 	}
 
 
-	public void setSellCurrency(double sellCurrency) {
+	public void setSellCurrency(String sellCurrency) {
 		this.sellCurrency = sellCurrency;
 	}
 
